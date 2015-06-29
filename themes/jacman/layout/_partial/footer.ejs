@@ -53,7 +53,7 @@
 				};
 				var cc = new Array('by','by-nc','by-nc-nd','by-nc-sa','by-nd','by-sa','zero'); %>
 		<% if (cc.in_array(theme.creative_commons) ) { %>
-				<div class="cc-license">
+		<div class="cc-license">
           <a href="http://creativecommons.org/licenses/<%= theme.creative_commons %>/4.0" class="cc-opacity" target="_blank">
             <img src="<%- config.root %>img/cc-<%= theme.creative_commons %>.svg" alt="Creative Commons" />
           </a>
@@ -67,6 +67,13 @@
 		<% } else {%>
 		<a href="<%= config.url %>" title="<%= config.title %>"><%= config.title %></a>
 		<% } %>
+		<br>
+		<br>
 		
+		<!-- Analytics Begin -->
+<%- partial('analytics') %>
+<!-- Analytics End -->
 		</p>
+
+
 </div>

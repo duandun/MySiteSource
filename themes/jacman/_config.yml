@@ -101,11 +101,11 @@ google_analytics:
 ## You MUST upgrade to Universal Analytics first!
 ## https://developers.google.com/analytics/devguides/collection/upgrade/?hl=zh_CN
 baidu_tongji:
-  enable: true
-  sitecode:  63ad204d33a5f3c40f0d0fcada5fea  ## e.g. e6d1f421bbc9962127a50488f9ed37d1 your baidu tongji site code
-cnzz_tongji:
   enable: false
-  siteid:    ## e.g. 1253575964 your cnzz tongji site id
+  sitecode:  "63ad204d33a5f3c40f0d0fcada5fea"  ## e.g. e6d1f421bbc9962127a50488f9ed37d1 your baidu tongji site code
+cnzz_tongji:
+  enable: true
+  siteid:    1255608118  ## e.g. 1253575964 your cnzz tongji site id
 
 #### Miscellaneous
 ShowCustomFont: true  ## you can change custom font in `variable.styl` and `font.styl` which in the theme folder `/jacman/source/css`.
@@ -124,10 +124,10 @@ google_cse:
 ## title: search
 ## ---
 baidu_search:     ## http://zn.baidu.com/
-  enable: true
-  id:   ## e.g. "783281470518440642"  for your baidu search id
-  site: http://zhannei.baidu.com/cse/search  ## your can change to your site instead of the default site
+  enable: false
+  id:   "4391912522959913634" ## e.g. "783281470518440642"  for your baidu search id
+  site:  ## your can change to your site instead of the default site
 
 tinysou_search:     ## http://tinysou.com/
-  enable: false
-  id:  ## e.g. "4ac092ad8d749fdc6293" for your tiny search id
+  enable: true
+  id:  "7b0d0b4a0bf175e73f7e"  ## e.g. "4ac092ad8d749fdc6293" for your tiny search id
