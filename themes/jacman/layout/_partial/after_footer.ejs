@@ -205,6 +205,47 @@ $(document).ready(function(){
 </script>
 <% } %>
 
+<% if ((page.layout=='post'||page.layout=='page'||page.layout=='photo')&&config.d3.enable) { %>
+  <script src="<%- config.root%>js/d3.js" type="text/javascript" charset="utf-8" ></script>
+ <script>
+  $(document).ready(function($) {
+    var width = 300;
+    var height = 300;
+    var dataset = [ 30 , 20 , 45 , 12 , 21 ];
+    
+    var svg = d3.select(".article-content").append("svg")
+                .attr("width",width)
+                .attr("height",height);
+    
+    var xScale = d3.scale.linear()
+              .domain([0, d3.max(dataset)])
+              .range([0,500]);
+              
+    var axis = d3.svg.axis()
+            .scale(xScale)
+            .orient("bottom");
+            
+    svg.append("g")
+      .attr("transform","translate(10,160)")
+      .call(axis);
+    
+    svg.selectAll("rect")
+       .data(dataset)
+       .enter()
+       .append("rect")
+       .attr("x",10)
+       .attr("y",function(d,i){
+        return i * 30;
+       })
+       .attr("width",xScale)        
+       .attr("height",28)
+       .attr("fill","red");
+ 
+  });
+
+ </script>
+<% } %>
+
 <!-- Totop Begin -->
 <%- partial('totop') %>
 <!-- Totop End -->

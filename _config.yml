@@ -73,3 +73,7 @@ deploy:
   type: git
   repo: git@github.com:duandun/HexoSite.git
   branch: gh-pages
+
+# enable d3
+d3:
+	enable: true
