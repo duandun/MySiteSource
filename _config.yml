@@ -67,6 +67,10 @@ theme: jacman
 stylus:
 	compress: true
 
+# enable d3
+d3:
+	enable: true
+
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
 deploy: 
@@ -74,6 +78,3 @@ deploy:
   repo: git@github.com:duandun/HexoSite.git
   branch: gh-pages
 
-# enable d3
-d3:
-	enable: true
