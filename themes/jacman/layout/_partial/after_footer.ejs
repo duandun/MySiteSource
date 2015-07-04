@@ -211,12 +211,13 @@ $(document).ready(function(){
  <script>
   $(document).ready(function($) {
     $('[data-toggle="popover"]').popover();
-    var width = 700, height = 300, format = d3.format(",d");
+    var width = 700, height = 520, format = d3.format(",d");
     var color = d3.scale.category20();
 
     var force = d3.layout.force()
-        .charge(-1000)
-        .linkDistance(50)
+        .charge(-1500)
+        .linkDistance(20)
+        .linkStrength(0)
         .alpha(0)
         .size([width, height]);
 
@@ -247,13 +248,18 @@ $(document).ready(function(){
           .data(graph.nodes)
         .enter().append("g")
         .on("mouseenter", function(d) {
-            $(this).find("circle").attr("r", d.r+5);
+            d3.select(this).select("circle").transition()
+                                          .duration(400)
+                                          .attr("r", d.r+5);
             $(this).find("circle").popover('show');
         })
         .on("mouseleave", function(d) {
-            $(this).find("circle").attr("r", d.r);
+            d3.select(this).select("circle").transition()
+                                          .duration(400)
+                                          .attr("r", d.r);
             $(this).find("circle").popover('hide');
         })
+        .call(force.drag)
         .attr("class", "node");
           
         //  .call(force.drag);
@@ -278,7 +284,7 @@ $(document).ready(function(){
             .attr("dy", ".3em");
 
       var dashline = svg.append("line")
-                      .attr("x1", 400)
+                      .attr("x1", 450)
                       .attr("y1", 260)
                       .attr("x2", 700)
                       .attr("y2", 260)
@@ -315,13 +321,17 @@ $(document).ready(function(){
 
 
       force.on("tick", function(d) {
-        // link.attr("x1", function(d) { return d.source.x; })
-        //     .attr("y1", function(d) { return d.source.y; })
-        //     .attr("x2", function(d) { return d.target.x; })
-        //     .attr("y2", function(d) { return d.target.y; });
+        link.attr("x1", function(d) { return d.source.x; })
+            .attr("y1", function(d) { return d.source.y; })
+            .attr("x2", function(d) { return d.target.x; })
+            .attr("y2", function(d) { return d.target.y; });
 
-        // node.attr("cx", function(d) { return d.x; })
-        //     .attr("cy", function(d) { return d.y; });
+        node.selectAll("circle").attr("cx", function(d) { return d.x; })
+            .attr("cy", function(d) { return d.y; });
+        node.selectAll("text").attr("x", function(d){ return d.x; })
+                            .attr("y", function(d){ return d.y; })
+                            .style("text-anchor", "middle")
+                            .attr("dy", ".3em");
       });
 
     });
