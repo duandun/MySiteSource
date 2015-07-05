@@ -1,15 +1,19 @@
 {
   "nodes":[
-    {"name":"航天信息","group":1,"x":100, "y":260, "r":50},
-    {"name":"航天云网","group":3, "x":300, "y":80, "r":40},
-    {"name":"航天在线","group":4, "x":120, "y":80, "r":40},
-    {"name":"航天软件","group":8, "x":180, "y":380, "r":40},
-    {"name":"企业征信","group":15, "x":500, "y":220, "r":40}
+    {"name":"航天信息","group":1,"x":350, "y":260, "r":50, "radi":0},
+    {"name":"航天云网","group":3, "x":300, "y":80, "r":40, "radi":102},
+    {"name":"航天在线","group":4, "x":120, "y":80, "r":40, "radi":153},
+    {"name":"航天软件","group":8, "x":180, "y":380, "r":40, "radi":204},
+    {"name":"企业征信","group":15, "x":500, "y":220, "r":40, "radi":255},
+    {"name":"税控","group":15, "x":600, "y":240, "r":40, "radi":306},
+    {"name":"金卡","group":15, "x":270, "y":160, "r":40, "radi":350}
   ],
   "links":[
      {"source":1,"target":0,"value":2},
      {"source":2,"target":0,"value":30},
      {"source":3,"target":0,"value":2},
-     {"source":4,"target":0,"value":2}
+     {"source":4,"target":0,"value":2},
+     {"source":5,"target":2,"value":2},
+     {"source":6,"target":2,"value":2}
   ]
 }
