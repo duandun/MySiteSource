@@ -243,6 +243,20 @@ $(document).ready(function(){
           .attr("y2", function(d) { return d.target.y; })
           .style("stroke-width", function(d) { return Math.sqrt(d.value); })
           .style("stroke", function(d) { return color(d.group); });
+      // var orx, ory;
+      // var drag = force.drag()
+      //                 .on("dragstart", function(d, i) {
+      //                   orx = d.x;
+      //                   ory = d.y;
+      //                   console.log(orx);
+      //                 })
+      //                 .on("dragend", function(d, i) {
+      //                   console.log(i + "__拖拽结束");
+      //                   // console.log(d);
+      //                   d3.select(this).select("circle")
+      //                                 .attr("cx", orx)
+      //                                 .attr("cy", ory);
+      //                 });
 
       var node = svg.selectAll(".node")
           .data(graph.nodes)
@@ -259,10 +273,9 @@ $(document).ready(function(){
                                           .attr("r", d.r);
             $(this).find("circle").popover('hide');
         })
-        .call(force.drag)
+      //  .call(force.drag)
         .attr("class", "node");
           
-        //  .call(force.drag);
         node.append("circle")
             .attr("r", function(d){ return d.r; })
             .attr("cx", function(d){ return d.x; })
@@ -291,34 +304,6 @@ $(document).ready(function(){
                       .style("stroke-dasharray", 4)
                       .attr("stroke-width", 2)
                       .attr("stroke", color(1));
-
-      // var nodeText = svg.selectAll(".nodetext")
-      //                 .data(graph.nodes)
-      //                 .enter()
-      //                 .append("text")
-                      
-      //                 .on("mouseover", function(d) {    
-      //                     node.attr("r", function(r) {
-      //                       if (d === r) {
-      //                         return r.r+5;
-      //                       } else {return r.r;}
-      //                     });
-
-      //                   })  
-      //                 .text(function(d) { return d.name });
-   
-                      
-                    // })
-                    // .on("mouseout", function() {
-                    //   node.attr("r", function(d) {
-                    //     return d.r;
-                    //   });
-                    //   $(this).popover('hide');
-                    // });
-      
-      // node.append("title")
-      //     .text(function(d) { return d.name; });
-
 
       force.on("tick", function(d) {
         link.attr("x1", function(d) { return d.source.x; })
