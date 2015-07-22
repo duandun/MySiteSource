@@ -27,7 +27,7 @@ D3是一个开源项目，最新的源码请点击[这里](https://github.com/mb
 目前D3兼容Firefox, Chrome, Safari, Opera, IE9+, Android and iOS。
 
 ## 力学图
-力学图类似于电荷相排斥blablabla...
+力学图类似于电荷相排斥blabla...
  
 
 [Duandun]: http://blog.chruyo.com "Duandun"
