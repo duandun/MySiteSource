@@ -23,15 +23,15 @@ D3是一个开源项目，最新的源码请点击[这里](https://github.com/mb
 	<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 
 
-## D3的兼容性
+## D3.js的兼容性
 目前D3兼容Firefox, Chrome, Safari, Opera, IE9+, Android and iOS。
 
-## 力学图
-力学图类似于电荷相排斥blabla...
+## 力学图（力导向图）的制作
+首先，介绍下力学图，力学图（也称为导向图，也有叫网络拓补图的，就是<span style="color:red;">通过排斥得到关系远近的结构</span>）在社交网络研究、信息传播途径等群体关系研究中应用非常广泛，它可以直观地反映群体与群体之间联系的渠道、交集多少，群体内部成员的联系强度等。
  
 
 [Duandun]: http://blog.chruyo.com "Duandun"
 [数据新闻]: http://djchina.org/2014/01/29/my-learning-experience-w-d3js/
-[馒头华华]: http://www.ourd3js.com/wordpress/
+[馒头华华的专栏]: http://www.ourd3js.com/wordpress/
 [Mike Bostock]: http://bost.ocks.org/mike/
 [D3.js]: http://d3js.org/
