@@ -1,4 +1,3 @@
-<script src="<%- config.root %>js/jquery-2.0.3.min.js"></script>
 <script src="<%- config.root %>js/jquery.imagesloaded.min.js"></script>
 <script src="<%- config.root %>js/gallery.js"></script>
 <script src="<%- config.root%>js/prettify/prettify.js"></script>
@@ -207,8 +206,8 @@ $(document).ready(function(){
 <% } %>
 
 <% if ((page.layout=='post'||page.layout=='page'||page.layout=='photo')&&config.d3.enable) { %>
-  <script src="<%- config.root%>js/d3.js" type="text/javascript" charset="utf-8" ></script>
- <script>
+
+ <!--<script>
   $(document).ready(function($) {
     $('[data-toggle="popover"]').popover();
     var width = 700, height = 520, format = d3.format(",d");
@@ -333,9 +332,9 @@ $(document).ready(function(){
    });
 
  </script>
+-->
 
-
- <script>
+<!-- <script>
     $('[data-toggle="popover"]').popover();
     var w = 800,
         h = 800,
@@ -463,7 +462,7 @@ $(document).ready(function(){
       return nodes;
     }
  </script>
- 
+ -->
 
  <script>
 

@@ -2,6 +2,7 @@
 <html <% if (config.language) { %>lang="<%= config.language %>"<% } %>>
 <head>
   <meta charset="UTF-8">
+
   <%
   var title = page.title;
 
@@ -41,5 +42,8 @@
     <link rel="stylesheet" href="<%- config.root%>css/bootstrap.min.css" type="text/css">
     <%- css('css/style') %>
     <link rel="stylesheet" href="<%- config.root%>js/prettify/prettify.css" type="text/css">
-
+    <script src="<%- config.root %>js/jquery-2.0.3.min.js"></script>
+    <% if (config.d3.enable) { %>
+      <script src="<%- config.root%>js/d3.js" type="text/javascript" charset="utf-8" ></script>
+    <% } %>
 </head>
