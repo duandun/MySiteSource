@@ -156,19 +156,21 @@ tick 指的是时间间隔，也就是每一个时间间隔之后就刷新一遍
 <div id="d3Demo"></div>
 <script>    
 $(document).ready(function($){
-    var nodes = [ { name: "GuiLin"    }, 
-                      { name: "GuangZhou" },
-                      { name: "XiaMen"    },
-                      { name: "HangZhou"   },
-                      { name: "ShangHai"   },
-                      { name: "QingDao"    },
-                      { name: "TianJin"    },
-                      { name: "BeiJing"    },
-                      { name: "ChangChun"  },
-                      { name: "XiAn"       },
-                      { name: "WuluMuQi"  },
-                      { name: "LaSa"       },
-                      { name: "ChengDu"    } ];
+    $('[data-toggle="popover"]').popover();
+
+    var nodes = [ { name: "吉林"    }, 
+                      { name: "广州" },
+                      { name: "厦门"    },
+                      { name: "杭州"   },
+                      { name: "上海"   },
+                      { name: "青岛"    },
+                      { name: "天津"    },
+                      { name: "北京"    },
+                      { name: "长春"  },
+                      { name: "西安"       },
+                      { name: "乌鲁木齐"  },
+                      { name: "拉萨"       },
+                      { name: "成都"    } ];
                      
         var edges = [  { source : 0  , target: 1 } ,
                        { source : 1  , target: 2 } ,
@@ -184,8 +186,10 @@ $(document).ready(function($){
                        { source : 11 , target: 12 } ,
                        { source : 12 , target: 0 } ];   
         
-        var width = 600;
-        var height = 600;
+        var width = 800;
+        var height = 500;
+        var img_w = 50;
+        var img_h = 50;
         
         var svg = d3.select("#d3Demo").append("svg")
                                 .attr("width",width)
@@ -212,14 +216,32 @@ $(document).ready(function($){
                             .data(nodes)
                             .enter()
                             .append("circle")
-                            .attr("r",10)
+                            .attr("r",15)
                             .style("fill",function(d,i){
                                 return color(i);
+                            })
+                            .attr("data-toggle", "popover")
+                            .attr("data-content", function(d) {
+                              return d.name;
+                            })
+                            .attr("data-container", "body")
+                            .on("mouseenter", function() {
+                                $(this).popover('show');
+                            })
+                            .on("mouseleave", function() {
+                                $(this).popover('hide');
                             })
                             .call(force.drag);
                             
         force.on("tick", function(){
-        
+            
+            // nodes.forEach(function(d, i) {
+            //     d.x = d.x - img_w/2 < 0 ? img_w/2 : d.x ;
+            //     d.x = d.x + img_w/2 > width ? width - img_w/2 : d.x ;
+            //     d.y = d.y - img_h/2 < 0 ? img_h/2 : d.y ;
+            //     d.y = d.y + img_h/2 > height ? height - img_h/2 : d.y ;
+            // });
+
              svg_edges.attr("x1",function(d){ return d.source.x; });
              svg_edges.attr("y1",function(d){ return d.source.y; });
              svg_edges.attr("x2",function(d){ return d.target.x; });
