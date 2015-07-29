@@ -75,5 +75,5 @@ d3:
 ## Docs: http://hexo.io/docs/deployment.html
 deploy: 
   type: git
-  repo: git@github.com:duandun/HexoSite.git
+  repo: https://github.com/duandun/HexoSite.git
   branch: gh-pages
