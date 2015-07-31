@@ -140,13 +140,13 @@ _注：转自[馒头华华的专栏]，更多教程和例子请移步[馒头华�
 
         force.on("tick", function(){
         
-             svg_edges.attr("x1",function(d){ return d.source.x; });
-             svg_edges.attr("y1",function(d){ return d.source.y; });
-             svg_edges.attr("x2",function(d){ return d.target.x; });
-             svg_edges.attr("y2",function(d){ return d.target.y; });
+             svg_edges.attr("x1", function(d){ return d.source.x; });
+             svg_edges.attr("y1", function(d){ return d.source.y; });
+             svg_edges.attr("x2", function(d){ return d.target.x; });
+             svg_edges.attr("y2", function(d){ return d.target.y; });
              
-             svg_nodes.attr("cx",function(d){ return d.x; });
-             svg_nodes.attr("cy",function(d){ return d.y; });
+             svg_nodes.attr("cx", function(d){ return d.x; });
+             svg_nodes.attr("cy", function(d){ return d.y; });
         });
 
 tick 指的是时间间隔，也就是每一个时间间隔之后就刷新一遍画面，刷新的内容写在后面的无名函数 function中，函数中写上更新的内容即可。
