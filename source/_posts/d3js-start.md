@@ -34,21 +34,21 @@ _注：转自[馒头华华的专栏]，更多教程和例子请移步[馒头华�
 ### 数据
 初始数据如下：
 
-        var nodes = [ { name: "GuiLin"    }, 
-                      { name: "GuangZhou" },
-                      { name: "XiaMen"    },
-                      { name: "HangZhou"   },
-                      { name: "ShangHai"   },
-                      { name: "QingDao"    },
-                      { name: "TianJin"    },
-                      { name: "BeiJing"    },
-                      { name: "ChangChun"  },
-                      { name: "XiAn"       },
-                      { name: "WuluMuQi"  },
-                      { name: "LaSa"       },
-                      { name: "ChengDu"    } ];
+         var nodes = [ { name: "吉林"    }, 
+                      { name: "广州" },
+                      { name: "厦门"    },
+                      { name: "杭州"   },
+                      { name: "上海"   },
+                      { name: "青岛"    },
+                      { name: "天津"    },
+                      { name: "北京"    },
+                      { name: "长春"  },
+                      { name: "西安"       },
+                      { name: "乌鲁木齐"  },
+                      { name: "拉萨"       },
+                      { name: "成都"    } ];
                      
-        var edges = [  { source : 0  , target: 1 } ,
+         var edges = [  { source : 0  , target: 1 } ,
                        { source : 1  , target: 2 } ,
                        { source : 2  , target: 3 } ,
                        { source : 3  , target: 4 } ,
@@ -117,7 +117,7 @@ _注：转自[馒头华华的专栏]，更多教程和例子请移步[馒头华�
 ### 绘制
 有了转换后的数据，就可以作图了。
 
-    var svg_edges = svg.selectAll("line")
+      var svg_edges = svg.selectAll("line")
                             .data(edges)
                             .enter()
                             .append("line")
