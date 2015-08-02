@@ -95,10 +95,18 @@ Node.js的官网下载地址如下： http://nodejs.org/download/ 。
     bower install
 
 ### 运行开发环境
+由于Angular应用是运行在客户端的应用，所以我们可以直接在文件系统中将网页打开，但还是在web server中打开比较好，尤其，出于安全的考虑，大多数的浏览器不会允许Javascript请求运行在文件系统中。
+运行phonecat项目的命令如下：
+
+    npm start
+
+这样，在你本地的机器上，服务器开始监听8000端口。你可以在浏览器中输入如下网址便可以访问了：
+    
+    http://localhost:8000/app/index.html
+
+ > 想要让应用运行在其他ip地址或是端口，可以修改在package.json中的"start"脚本，你可以使用 `-a` 来设置ip地址，使用 `-p` 来设置端口。
+
 
 [nvm]:https://github.com/creationix/nvm
-nvm: https://github.com/creationix/nvm
 [angular-phonecat repository]:https://github.com/angular/angular-phonecat 
-angular-phonecat repository: https://github.com/angular/angular-phonecat
 [Git]:http://git-scm.com 
-Git: http://git-scm.com
