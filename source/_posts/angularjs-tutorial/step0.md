@@ -106,6 +106,20 @@ Node.js的官网下载地址如下： http://nodejs.org/download/ 。
 
  > 想要让应用运行在其他ip地址或是端口，可以修改在package.json中的"start"脚本，你可以使用 `-a` 来设置ip地址，使用 `-p` 来设置端口。
 
+### 运行单元测试
+在实际开发过程中，我们经常使用单元测试来验证我们的JS代码运行是否正确。单元测试专注于测试分离出来的小模块。在本项目中，所有的单元测试均在 `test/unit` 目录下。
+
+本项目使用 Karma 来运行单元测试：
+    
+    npm test
+
+Karma 会读取 `test/karma.conf.js` 中的配置信息，配置信息中包括：
+ * 打开一个Chrome 浏览器并连接到Karma
+ * 在这个浏览器中执行所有的单元测试
+ * 在终端命令行中返回测试结果
+ * 监测项目中的所有 Javascript 文件，如有文件变化，则重新启动测试
+
+最好在后台一直运行Karma，这样在你进行代码修改的时候，就能马上得到测试的反馈。
 
 [nvm]:https://github.com/creationix/nvm
 [angular-phonecat repository]:https://github.com/angular/angular-phonecat 
