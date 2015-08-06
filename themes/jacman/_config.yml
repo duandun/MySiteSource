@@ -14,7 +14,6 @@ menu:
 #### Widgets
 widgets: 
 - category
-- tag
 - tagcloud
 - rss
 ## provide seven widgets:category,tag,rss,archive,tagcloud,links,weibo,douban
