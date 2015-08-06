@@ -2,7 +2,7 @@
 title: 使用Html5完成客户端扫描识别二维码
 date: 2015.08.06
 tags:
-- 博客
+- 分享
 - html5
 - javascript
 - qrcode
