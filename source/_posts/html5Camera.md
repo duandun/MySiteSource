@@ -110,8 +110,247 @@ windows 用户不需要键入 `sudo`
 
 由于需要在网页中调用手机摄像头，这样就需要使用 html5 中提供的一些新的 api，在这里需要使用 `getUserMedia` 和 `MediaStreamTrack` 两个函数。其中， `getUserMedia` 可以获取当前设备的摄像头和音频设备，`MediaStreamTrack` 用来获取当前设备音频和视频源（如获取手机多个摄像头的`Id`）。
 
+### 实现原理
+使用 `video` 标签来显示当前设备的视频图像，将图像绘制在 `canvas` 标签中，再使用二维码解析库解析 `canvas`。
 
---太累了，明天再接着写吧。。。--
+代码如下：   
+
+    <!DOCTYPE HTML>  
+    <html>  
+    <head>  
+    <title>授权页面</title>  
+    <meta charset="utf-8">  
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no,minimal-ui">
+    <meta name="author" content="duandun">
+    <link rel='stylesheet' href='/libs/bootstrap/dist/css/bootstrap.css' />
+    <script type="text/javascript" src="/libs/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="/libs/bootstrap/dist/js/bootstrap.js"></script>
+     <!-- <script type="text/javascript" src="/libs/angularjs/angular.js"></script> -->
+
+    <script type="text/javascript" src="/js/grid.js"></script>
+    <script type="text/javascript" src="/js/version.js"></script>
+    <script type="text/javascript" src="/js/detector.js"></script>
+    <script type="text/javascript" src="/js/formatinf.js"></script>
+    <script type="text/javascript" src="/js/errorlevel.js"></script>
+    <script type="text/javascript" src="/js/bitmat.js"></script>
+    <script type="text/javascript" src="/js/datablock.js"></script>
+    <script type="text/javascript" src="/js/bmparser.js"></script>
+    <script type="text/javascript" src="/js/datamask.js"></script>
+    <script type="text/javascript" src="/js/rsdecoder.js"></script>
+    <script type="text/javascript" src="/js/gf256poly.js"></script>
+    <script type="text/javascript" src="/js/gf256.js"></script>
+    <script type="text/javascript" src="/js/decoder.js"></script>
+    <script type="text/javascript" src="/js/qrcode.js"></script>
+    <script type="text/javascript" src="/js/findpat.js"></script>
+    <script type="text/javascript" src="/js/alignpat.js"></script>
+    <script type="text/javascript" src="/js/databr.js"></script>
+
+    <style>
+        #qr-canvas {
+            position: relative;
+            top: -200px;
+            z-index: 2000;
+        }
+        .row {
+            margin-bottom: -20px;
+        }
+    </style>
+    </head>  
+    <body class="container text-center" >  
+    <div class="row" >
+        <video id="video" width="300" height="300" autoplay></video>        
+    </div>
+    <canvas id="qr-canvas" width="100" height="100"></canvas>
+    <div class="row">
+        <div class="col-xs-6">
+            <canvas id="canvasA" width="100" height="100" ></canvas>
+            <input type="hidden" id="inputA"  >
+        </div>
+        <div class="col-xs-6">
+            <canvas id="canvasB" width="100" height="100" ></canvas>
+            <input type="hidden" id="inputB" >
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-4">
+            <a type="button" value="授权机" id="btn1" class="btn btn-primary" href="javascript:;">授权机</a>
+        </div>
+        <div class="col-xs-4">
+            <a type="button" id="send" class="btn btn-primary" href="javascript:;" onclick="javascript:send();" disabled="disabled">登陆</a>
+        </div>
+        <div class="col-xs-4">
+            <a type="button" value="被授权机" id="btn2" class="btn btn-primary" href="javascript:;">被授权机</a>  
+        </div>   
+    </div>
+    <script type="text/javascript"> 
+
+    // Put event listeners into place
+
+    function send() {
+    alert($("#inputA").val() + "   " + $("#inputB").val());
+    }
+
+    window.addEventListener("DOMContentLoaded", function() {
+
+    // Grab elements, create settings, etc.
+    var canvas = document.getElementById("qr-canvas"),
+        context = canvas.getContext("2d"),
+        video = document.getElementById("video"), 
+        videoArray = [],
+        btn1 = document.getElementById("btn1"),
+        btn2 = document.getElementById("btn2"),
+        canvasA = document.getElementById("canvasA"),
+        canvasB = document.getElementById("canvasB"),
+        errBack = function(error) {
+            console.log("Video capture error: ", error.code); 
+        };
+
+    // 获取设备的媒体数据
+    navigator.getUserMedia = navigator.getUserMedia ||
+        navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+
+    // 将canvas图像转换为黑白图片
+    function imageConvertToGray(ctx){ 
+        var length = canvas.width * canvas.height,
+            imageData = ctx.getImageData(0, 0, canvas.width, canvas.height); 
+        for (var i = 0; i < length * 4; i += 4) { 
+            var myRed = imageData.data[i]; 
+            var myGreen = imageData.data[i + 1]; 
+            var myBlue = imageData.data[i + 2]; 
+            myGray = parseInt((myRed + myGreen + myBlue) / 3); 
+            imageData.data[i] = myGray; 
+            imageData.data[i + 1] = myGray; 
+            imageData.data[i + 2] = myGray; 
+        } 
+        ctx.putImageData(imageData, 0, 0); 
+    } 
+
+    // 获取设备的摄像头信息id
+    function gotSources(sourceInfos) {
+      for (var i = 0; i !== sourceInfos.length; ++i) {
+        var sourceInfo = sourceInfos[i];
+        if (sourceInfo.kind === 'video') {
+          videoArray.push(sourceInfo.id);
+          // alert(videoArray);
+        } else {
+          console.log('Some other kind of source: ', sourceInfo);
+        }
+      }
+      var constraints = {
+            video: {
+              optional: [{
+                sourceId: videoArray[1]
+              }]
+            }
+        };
+      start(constraints);
+    }
+
+    // 进行扫描任务
+    function scan() {
+        if (typeof MediaStreamTrack === 'undefined' ||
+            typeof MediaStreamTrack.getSources === 'undefined') {
+            alert('This browser does not support MediaStreamTrack.\n\nTry Chrome.');
+            var constraints = {
+                video: true
+            };
+            start(constraints);
+        } else {
+          MediaStreamTrack.getSources(gotSources);
+        }
+     }
+
+     // 
+    function successCallback(stream) {
+      window.stream = stream; // make stream available to console
+      video.src = window.URL.createObjectURL(stream);
+      video.play();
+    }
+
+    function errorCallback(error) {
+      console.log('navigator.getUserMedia error: ', error);
+    }
+
+    // 扫描二维码事件
+    function recEvent(canvasDis) {
+        var $input, btn;
+        if (canvasDis.getAttribute("id")==="canvasA") {
+                $input = $("#inputA");
+                btn = document.getElementById("btn1");
+        } else if (canvasDis.getAttribute("id")==="canvasB") {
+                $input = $("#inputB");
+                btn = document.getElementById("btn2");
+        }
+        contextDis = canvasDis.getContext("2d");
+        // 每20毫秒取一个图像并进行二维码解析
+        var i = setInterval(function() {
+              //  context.drawImage(video, 140,220,200,200,0,0,200,200);
+              context.drawImage(video, 140,220,300,300,0,0,200,200);
+                //为提高速度，可以不转换为黑白图像
+               // imageConvertToGray(context);
+                 try{
+                     qrcode.callback = function(data) {
+                        alert(data);
+                        console.log('the data is : ' + data);
+                        
+                        // 解析成功后，将解析得到的数据传入到对应隐藏域中
+                        $input.val(data);
+
+                        if ($("#inputA").val() && $("#inputB").val()) {
+                            $("#send").removeAttr("disabled");
+                        }
+                        video.src = '';
+                        video.pause();
+                        contextDis.putImageData(context.getImageData(0,0,canvas.width, canvas.height),0,0);
+                        context.clearRect(0,0,200,200); 
+                        btn.style.backgroundColor = '#CC6633';
+                        btn.style.borderColor = '#CC6633';
+
+                        };
+                     qrcode.decode();          
+                      } catch(e) {           
+                        console.log('unable to read qr code');
+                    }
+            }, 20);
+    }
+
+    // 绑定授权机按钮事件
+    video.addEventListener('pause', function() {
+            clearInterval(i);
+    });
+
+    // 绑定授权机按钮事件
+    btn1.addEventListener('click', function() {
+        $(video).one('play', function() {
+            recEvent(canvasA);
+        });
+        this.setAttribute('style', '');
+        scan();
+    });
+
+    // 绑定被授权机按钮事件
+    btn2.addEventListener('click', function() {
+        $(video).one('play', function() {
+            recEvent(canvasB);
+        });
+          this.setAttribute('style', '');
+         scan();
+    });
+
+    function start(constraints) {
+      if (!!window.stream) {
+        video.src = null;
+        window.stream.stop();
+      }
+        navigator.getUserMedia(constraints, successCallback, errorCallback);
+    }
+    }, false);
+
+    </script>  
+    </body>  
+    </html>  
 
 
 
