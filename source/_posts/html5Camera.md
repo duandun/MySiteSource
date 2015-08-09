@@ -113,6 +113,8 @@ windows 用户不需要键入 `sudo`
 ### 实现原理
 使用 `video` 标签来显示当前设备的视频图像，将图像绘制在 `canvas` 标签中，再使用二维码解析库解析 `canvas`。
 
+<span style="color:red;font-size:80%;">注：该实例仅适用于 Android 手机的 chrome 浏览器（或UC浏览器），由于浏览器的原因，在UC浏览器中的效果不是很好</span>
+
 代码如下：   
 
     <!DOCTYPE HTML>  
@@ -285,7 +287,7 @@ windows 用户不需要键入 `sudo`
         }
         contextDis = canvasDis.getContext("2d");
         // 每20毫秒取一个图像并进行二维码解析
-        var i = setInterval(function() {
+        window.i = setInterval(function() {
               //  context.drawImage(video, 140,220,200,200,0,0,200,200);
               context.drawImage(video, 140,220,300,300,0,0,200,200);
                 //为提高速度，可以不转换为黑白图像
@@ -301,7 +303,6 @@ windows 用户不需要键入 `sudo`
                         if ($("#inputA").val() && $("#inputB").val()) {
                             $("#send").removeAttr("disabled");
                         }
-                        video.src = '';
                         video.pause();
                         contextDis.putImageData(context.getImageData(0,0,canvas.width, canvas.height),0,0);
                         context.clearRect(0,0,200,200); 
@@ -352,5 +353,8 @@ windows 用户不需要键入 `sudo`
     </body>  
     </html>  
 
+### 实现效果
+
+![](/img/html5/demo.png)
 
 
