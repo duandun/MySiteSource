@@ -1,7 +1,7 @@
 ---
-title: Angularjs Tutorial-step0
+title: Angularjs Tutorial
 description: 通过这个简单的教程，能够使你更加清晰地了解Angularjs网页应用的构成。跟随这个教程，你将会完成一个能展示手机列表的网页应用，这个应用包含关键字搜索，查看详情页等功能。
-date: 2015.08.10
+date: 2015.08.01
 tags:
 - 博客
 - angularjs
