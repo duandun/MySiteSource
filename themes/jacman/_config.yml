@@ -30,7 +30,7 @@ favicon: img/favicon.ico   ## size:32px*32px,`.ico` is recommended,please put im
 apple_icon: img/snoopy.jpg ## size:114px*114px,please put image into the theme folder `/jacman/source/img`.
 author_img_enable: true ## display author avatar picture
 author_img: img/author.jpg ## size:220px*220px.display author avatar picture.if don't want to display,please don't set this.
-banner_img: #img/banner.jpg ## size:1920px*200px+. Banner Picture
+banner_img: img/banner_bubble.jpg ## size:1920px*200px+. Banner Picture
 ### Theme Color 
 theme_color:
     theme: '#F2A963'    ##the defaut theme color is blue
