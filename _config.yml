@@ -4,7 +4,7 @@
 
 # Site
 title: Duandun
-subtitle: 求萌妹子带走
+subtitle: 已被女神带走~ 😆
 description: 
 author: Duandun JQ
 language: zh-CN
@@ -64,6 +64,9 @@ pagination_dir: page
 ## Plugins: http://hexo.io/plugins/
 ## Themes: http://hexo.io/themes/
 theme: jacman
+theme_config:
+  theme_color:
+    theme: '#F2A963'    ##the defaut theme color is blue
 stylus:
 	compress: true
 
